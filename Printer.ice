@@ -1,16 +1,27 @@
 module Demo
 {
-    class Response{
+    class Response
+    {
         long responseTime;
         string value;
     }
 
-    interface Callback{
+    // Esta interfaz representa el servicio del cliente
+    // por el cual, el servidor puede contactar al cliente para
+    // informarle que el servicio solicitado, ya está listo.
+    interface Callback
+    {
         void callbackClient(Response res);
     }
 
+    //------- Servicios del servidor ---------
+
+    // Esta interfaz representa el servicio del servidor
+    // el cual, es usado por el cliente.
     interface Printer
     {
+        // El '*' es para indicarle a ICE que habrán
+        // más clientes para un mismo servicio.
         void printString(string s, Callback* callback);
     }
 

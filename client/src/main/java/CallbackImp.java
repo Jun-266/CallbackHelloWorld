@@ -1,12 +1,12 @@
 import com.zeroc.Ice.Current;
-
 import Demo.Response;
+import Demo.Callback;
 
-public class CallbackImp implements Demo.Callback{
+public class CallbackImp implements Callback{
 
     @Override
     public void callbackClient(Response response, Current current) {
-        System.out.println("Respuesta del server: " + response.value + ", " + response.responseTime);
+       System.out.println("Respuesta del server: " + response.value + ", " + response.responseTime);
        System.out.println("Callbcak invoke");
     }
     

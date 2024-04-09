@@ -1,19 +1,22 @@
-import java.util.concurrent.Semaphore;
-
 import com.zeroc.IceInternal.ThreadPool;
-
+import com.zeroc.Ice.Current;
 import Demo.Response;
+import Demo.Printer;
+import Demo.CallbackPrx;
 
-public class PrinterI implements Demo.Printer
+public class PrinterI implements Printer
 {
     ThreadPool ca;
-    Semaphore s = new Semaphore(2)
+    // Semaphore s = new Semaphore(2);
 
-    public synchronized void printString(String s,Demo.CallbackPrx callback, com.zeroc.Ice.Current current)
+    public synchronized void printString(String s, CallbackPrx callback, Current current)
     {
+        /*
         synchronized(objs){
 
         }
+        */
+
         ca.execute(null);
         new Thread(()->{
             try{
@@ -22,7 +25,7 @@ public class PrinterI implements Demo.Printer
                 callback.callbackClient(new Response(0, "Server response: " + s));
     
             }catch(Exception e){
-                e.printStackTrace();
+                System.out.println(e.getMessage());
             }
 
         }
