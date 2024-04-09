@@ -1,3 +1,5 @@
+# We must define in this file the services from the client and the server.
+
 #
 # The client reads this property to create the reference to the
 # "hello" object in the server.
