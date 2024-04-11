@@ -32,4 +32,11 @@ public class PrinterI implements Printer
         }
         ).start();
     }
+
+    public Response printString(String s, Current current)
+    {
+        System.out.println(s);
+        return new Response(0, "Server response: " + s);
+    }
+
 }

@@ -6,6 +6,16 @@ module Demo
         string value;
     };
 
+    //-------- Servicios del cliente ---------
+
+    // Esta interfaz representa el servicio del cliente
+    // por el cual, el servidor puede contactar al cliente para
+    // informarle que el servicio solicitado, ya está listo.
+    interface Callback
+    {
+        void callbackClient(Response res);
+    };
+
     //-------- Servicios del servidor ---------
     interface Printer
     {
@@ -17,17 +27,7 @@ module Demo
         Response printCommandResult(string dataClient, string command);
     };
 
-    //-------- Servicios del cliente ---------
-
-    // Esta interfaz representa el servicio del cliente
-    // por el cual, el servidor puede contactar al cliente para
-    // informarle que el servicio solicitado, ya está listo.
-    interface Callback
-    {
-        void callbackClient(Response res);
-    };
-
-    //------- Servicios del servidor ---------
+    //------- Implementación con Callback ---------
 
     // Esta interfaz representa el servicio del servidor
     // el cual, es usado por el cliente.

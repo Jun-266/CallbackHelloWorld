@@ -27,7 +27,6 @@ public class Server
             Object object = new PrinterI();
             adapter.add(object, stringToIdentity("SimplePrinter"));
             adapter.activate();
-
             communicator.waitForShutdown();
         }
     }
