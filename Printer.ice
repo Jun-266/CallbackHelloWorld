@@ -4,7 +4,20 @@ module Demo
     {
         long responseTime;
         string value;
-    }
+    };
+
+    //-------- Servicios del servidor ---------
+    interface Printer
+    {
+        Response printString(string s);
+    };
+
+    interface ExecuteCommand
+    {
+        Response printCommandResult(string dataClient, string command);
+    };
+
+    //-------- Servicios del cliente ---------
 
     // Esta interfaz representa el servicio del cliente
     // por el cual, el servidor puede contactar al cliente para
@@ -12,17 +25,17 @@ module Demo
     interface Callback
     {
         void callbackClient(Response res);
-    }
+    };
 
     //------- Servicios del servidor ---------
 
     // Esta interfaz representa el servicio del servidor
     // el cual, es usado por el cliente.
-    interface Printer
-    {
+    // interface Printer
+    // {
         // El '*' es para indicarle a ICE que habrán
         // más clientes para un mismo servicio.
-        void printString(string s, Callback* callback);
-    }
+    //    void printString(string s, Callback* callback);
+    // }
 
-}
+};

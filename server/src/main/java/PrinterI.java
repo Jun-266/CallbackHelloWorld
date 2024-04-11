@@ -17,17 +17,18 @@ public class PrinterI implements Printer
         }
         */
 
-        ca.execute(null);
-        new Thread(()->{
-            try{
+        // ca.execute(null);
+        new Thread(() -> {
+            try
+            {
                 System.out.println(s);
                 Thread.sleep(5000);
                 callback.callbackClient(new Response(0, "Server response: " + s));
-    
-            }catch(Exception e){
+            }
+            catch(Exception e)
+            {
                 System.out.println(e.getMessage());
             }
-
         }
         ).start();
     }
