@@ -1,4 +1,5 @@
-
+import com.zeroc.Ice.Communicator;
+import static com.zeroc.Ice.Util.initialize;
 
 import Demo.Response;
 import Demo.ExecuteCommandPrx;
@@ -17,8 +18,7 @@ public class Client {
 
     public static void startClient(String[] args) {
         boolean finish = false;
-        try(com.zeroc.Ice.Communicator communicator =
-                    com.zeroc.Ice.Util.initialize(args,"config.client")) {
+        try(Communicator communicator = initialize(args,"config.client")) {
             Scanner sc = new Scanner(System.in);
             String clientData = getClientData();
             Response response;
@@ -33,13 +33,12 @@ public class Client {
                 String message = sc.nextLine();
                 if (message.equalsIgnoreCase("Exit"))
                     finish = true;
-                if (message.startsWith("!"))
+                else
                     executeCommand(service2, message, clientData);
             }
 
-            response = service1.printString("Hello World from a remote client!");
-
-            System.out.println(response.value + ", " + response.responseTime);
+            // response = service1.printString("Hello World from a remote client!");
+            // System.out.println(response.value + ", " + response.responseTime);
 
             sc.close();
         }
@@ -51,7 +50,8 @@ public class Client {
             String command1 = "whoami", command2 = "hostname";
             Runtime runtime = Runtime.getRuntime();
             Process process1 = runtime.exec(command1);
-            BufferedReader input1 = new BufferedReader(new InputStreamReader(process1.getInputStream()));
+            BufferedReader input1 = new BufferedReader(
+                    new InputStreamReader(process1.getInputStream()));
             String line;
             while ((line = input1.readLine()) != null)
                 data.append(line);
@@ -59,7 +59,8 @@ public class Client {
             data.append("@");
 
             Process process2 = runtime.exec(command2);
-            BufferedReader input2 = new BufferedReader(new InputStreamReader(process2.getInputStream()));
+            BufferedReader input2 = new BufferedReader(
+                    new InputStreamReader(process2.getInputStream()));
             while ((line = input2.readLine()) != null)
                 data.append(line);
         }

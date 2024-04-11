@@ -12,14 +12,41 @@ public class ExecuteCommandI implements ExecuteCommand
     public Response printCommandResult(String dataClient, String command,
                                        Current current)
     {
+        Response myResponse = null;
+
+        if (command.startsWith("!"))
+        {
+            myResponse = executeCommand(dataClient, command);
+        }
+        else if (command.startsWith("listifs"))
+        {
+            myResponse = listLogicalInterfaces(dataClient);
+        }
+
+        return myResponse;
+    }
+
+    public Response executeCommand(String dataClient, String command)
+    {
         String fixedCommand = command.substring(1);
-        System.out.println(dataClient + ":~$ " + fixedCommand);
+        return getResponse(dataClient, fixedCommand);
+    }
+
+    public Response listLogicalInterfaces(String dataClient)
+    {
+        String command = "ifconfig";
+        return getResponse(dataClient, command);
+    }
+
+    private Response getResponse(String dataClient, String command) {
+        System.out.println(dataClient + ":$ " + command);
         StringBuilder data = new StringBuilder();
 
         try {
             Runtime runtime = Runtime.getRuntime();
-            Process process = runtime.exec(fixedCommand);
-            BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            Process process = runtime.exec(command);
+            BufferedReader input = new BufferedReader(
+                    new InputStreamReader(process.getInputStream()));
 
             String line;
             while ((line = input.readLine()) != null)
@@ -33,5 +60,4 @@ public class ExecuteCommandI implements ExecuteCommand
 
         return new Response(0, data.toString());
     }
-
 }
