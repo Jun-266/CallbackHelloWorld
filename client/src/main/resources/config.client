@@ -1,9 +1,10 @@
-# The client reads this property to create the reference to the
-# "hello" object in the server.
+# Services that the client will be using.
 Printer.Proxy=SimplePrinter:tcp -p 9099
+ExecuteCommand.Proxy=SimpleCommandExecute:tcp -p 9098
 
 # Uncomment to use the WebSocket transports instead.
 #Hello.Proxy=hello:ws -p 10002:udp -p 10000:wss -p 10003
 
-# Only listen on the ZeroTier's LIASOn1 interface by default.
-Ice.Default.Host=hgrid5
+# We specify the server's hostname where the client
+# will be connected.
+Ice.Default.Host=hgrid2

@@ -1,9 +1,6 @@
-# The server creates one single object adapter with the name
-# "Hello". The following line sets the endpoints for this
-# adapter.
+# Server's services.
 Printer.Endpoints=tcp -p 9099
+ExecuteCommand.Endpoints=tcp -p 9098
 
-#
-# Only listen on the ZeroTier's LIASOn1 interface by default.
-#
-Ice.Default.Host=hgrid5
+# Server's hostname where is going to be deployed.
+Ice.Default.Host=hgrid2
