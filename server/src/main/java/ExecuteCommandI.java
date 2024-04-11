@@ -1,6 +1,8 @@
+import com.zeroc.Ice.Current;
+
 import Demo.Response;
 import Demo.ExecuteCommand;
-//---------
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,7 +10,7 @@ import java.io.InputStreamReader;
 public class ExecuteCommandI implements ExecuteCommand
 {
     public Response printCommandResult(String dataClient, String command,
-                                       com.zeroc.Ice.Current current)
+                                       Current current)
     {
         String fixedCommand = command.substring(1);
         System.out.println(dataClient + ":~$ " + fixedCommand);
