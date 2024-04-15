@@ -28,6 +28,9 @@ public class Client {
             ExecuteCommandPrx service2 = ExecuteCommandPrx
                     .checkedCast(communicator.propertyToProxy("ExecuteCommand.Proxy"));
 
+            response = service1.printString(clientData + " is online!");
+            System.out.println(response.value + ", " + response.responseTime);
+
             while (!finish) {
                 System.out.print(clientData + ": ");
                 String message = sc.nextLine();
@@ -36,9 +39,6 @@ public class Client {
                 else
                     executeCommand(service2, message, clientData);
             }
-
-            // response = service1.printString("Hello World from a remote client!");
-            // System.out.println(response.value + ", " + response.responseTime);
 
             sc.close();
         }
