@@ -1,17 +1,19 @@
 module Demo
 {
-    class Response{
+    class Response
+    {
         long responseTime;
         string value;
-    }
+    };
 
-    interface Callback{
+    interface Callback
+    {
         void callbackClient(Response res);
-    }
+    };
 
     interface Printer
     {
         void printString(string s, Callback* callback);
-    }
+    };
 
-}
+};

@@ -1,13 +1,19 @@
-import java.io.*;
-
+// import java.io.*;
+import java.util.List;
+import java.util.ArrayList;
+import com.zeroc.Ice.Communicator;
+import com.zeroc.Ice.ObjectAdapter;
+import com.zeroc.Ice.Object;
+import static com.zeroc.Ice.Util.initialize;
+import static com.zeroc.Ice.Util.stringToIdentity;
 
 public class Server
 {
     public static void main(String[] args)
     {
-        java.util.List<String> extraArgs = new java.util.ArrayList<String>();
+        List<String> extraArgs = new ArrayList<>();
 
-        try(com.zeroc.Ice.Communicator communicator = com.zeroc.Ice.Util.initialize(args,"config.server",extraArgs))
+        try(Communicator communicator = initialize(args,"config.server",extraArgs))
         {
             if(!extraArgs.isEmpty())
             {
@@ -16,14 +22,16 @@ public class Server
                     System.out.println(v);
                 }
             }
-            com.zeroc.Ice.ObjectAdapter adapter = communicator.createObjectAdapter("Printer");
-            com.zeroc.Ice.Object object = new PrinterI();
-            adapter.add(object, com.zeroc.Ice.Util.stringToIdentity("SimplePrinter"));
+
+            ObjectAdapter adapter = communicator.createObjectAdapter("Printer");
+            Object object = new PrinterI();
+            adapter.add(object, stringToIdentity("SimplePrinter"));
             adapter.activate();
             communicator.waitForShutdown();
         }
     }
 
+    /*
     public static void f(String m)
     {
         String str = null, output = "";
@@ -42,5 +50,6 @@ public class Server
         catch(Exception ex) {
         }
     }
+    */
 
 }
