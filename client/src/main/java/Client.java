@@ -1,8 +1,19 @@
+<<<<<<< HEAD
 import com.zeroc.Ice.Communicator;
 import static com.zeroc.Ice.Util.initialize;
+=======
+import com.zeroc.Ice.ObjectPrx;
+import com.zeroc.Ice.Communicator;
+import com.zeroc.Ice.ObjectAdapter;
+import static com.zeroc.Ice.Util.initialize;
+import static com.zeroc.Ice.Util.stringToIdentity;
+>>>>>>> template-working
 
 import Demo.Response;
+<<<<<<< HEAD
 import Demo.ExecuteCommandPrx;
+=======
+>>>>>>> template-working
 import Demo.PrinterPrx;
 
 import java.io.BufferedReader;
@@ -10,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
+<<<<<<< HEAD
 public class Client {
 
     public static void main(String[] args) {
@@ -27,6 +39,24 @@ public class Client {
                     .checkedCast(communicator.propertyToProxy("Printer.Proxy"));
             ExecuteCommandPrx service2 = ExecuteCommandPrx
                     .checkedCast(communicator.propertyToProxy("ExecuteCommand.Proxy"));
+=======
+        try(Communicator communicator = initialize(args,"config.client",extraArgs))
+        {
+            //com.zeroc.Ice.ObjectPrx base = communicator.stringToProxy("SimplePrinter:default -p 10000");
+            Response response = null;
+            PrinterPrx service = PrinterPrx
+                    .checkedCast(communicator.propertyToProxy("Printer.Proxy"));
+            
+            if(service == null)
+            {
+                throw new Error("Invalid proxy");
+            }
+
+            ObjectAdapter adapter = communicator.createObjectAdapter("Callback");
+            CallbackImp callbackImp = new CallbackImp();
+            ObjectPrx obprx = adapter.add(callbackImp, stringToIdentity("callbackClient"));
+            adapter.activate();
+>>>>>>> template-working
 
             response = service1.printString(clientData + " is online!");
             System.out.println(response.value + ", " + response.responseTime);

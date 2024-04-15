@@ -16,4 +16,15 @@ module Demo
         Response printCommandResult(string dataClient, string command);
     };
 
+    interface Callback
+    {
+        void callbackClient(Response res);
+    };
+
+/*
+    interface Printer
+    {
+        void printString(string s, Callback* callback);
+    };
+*/
 };
