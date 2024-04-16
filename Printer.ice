@@ -28,10 +28,4 @@ module Demo
         void showClients(Callback* callback);
     };
 
-/*
-    interface Printer
-    {
-        void printString(string s, Callback* callback);
-    };
-*/
 };

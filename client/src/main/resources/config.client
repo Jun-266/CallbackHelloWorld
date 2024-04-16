@@ -12,4 +12,4 @@ Callback.Endpoints=tcp -p 9096
 # will be connected.
 # Ice.Default.Host=hgrid2
 Ice.Default.Host=localhost
-Ice.ThreadPool.Server.Size=15
+Ice.ThreadPool.Server.SizeMax=15

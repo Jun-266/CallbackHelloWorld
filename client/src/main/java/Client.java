@@ -50,7 +50,9 @@ public class Client
                 if (message.equalsIgnoreCase("Exit"))
                     finish = true;
                 else if (message.equals("list clients"))
-                    printClients(message, clientData, service3, callbackPrx);
+                    printClients(service3, callbackPrx);
+                else if (message.equals("BC"))
+                    System.out.println();
                 else
                     executeCommand(service2, message, clientData);
             }
@@ -97,8 +99,7 @@ public class Client
         System.out.println(response.value);
     }
 
-    public static void printClients(String command, String clientData,
-                                    CRUDClientPrx crudClients, CallbackPrx callbackPrx)
+    public static void printClients(CRUDClientPrx crudClients, CallbackPrx callbackPrx)
     {
         if (crudClients == null)
             throw new Error("Invalid Proxy");
@@ -106,19 +107,4 @@ public class Client
         crudClients.showClients(callbackPrx);
     }
 
-/*
-    public void someCode()
-    {
-        //com.zeroc.Ice.ObjectPrx base = communicator.stringToProxy("SimplePrinter:default -p 10000");
-        Response response = null;
-        PrinterPrx service = PrinterPrx
-                .checkedCast(communicator.propertyToProxy("Printer.Proxy"));
-
-        if(service == null)
-        {
-            throw new Error("Invalid proxy");
-        }
-
-    }
-*/
 }

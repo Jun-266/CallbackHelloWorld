@@ -27,7 +27,7 @@ public class CRUDClientI implements CRUDClient
                 if (!clients.isEmpty())
                 {
                     for (String client : clients)
-                        clientData.append(client).append("\n");
+                        clientData.append(client).append(" ");
                     callbackPrx.callbackClient(new Response(0, clientData.toString()));
                 }
             }

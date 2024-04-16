@@ -6,4 +6,4 @@ CRUDClient.Endpoints=tcp -p 9097
 # Server's hostname where is going to be deployed.
 # Ice.Default.Host=hgrid2
 Ice.Default.Host=localhost
-Ice.ThreadPool.Server.Size=15
+Ice.ThreadPool.Server.SizeMax=15
