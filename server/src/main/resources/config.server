@@ -1,6 +1,9 @@
 # Server's services.
 Printer.Endpoints=tcp -p 9099
 ExecuteCommand.Endpoints=tcp -p 9098
+CRUDClient.Endpoints=tcp -p 9097
 
 # Server's hostname where is going to be deployed.
-Ice.Default.Host=hgrid2
+# Ice.Default.Host=hgrid2
+Ice.Default.Host=localhost
+Ice.ThreadPool.Server.Size=15

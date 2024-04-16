@@ -6,6 +6,11 @@ module Demo
         string value;
     };
 
+    interface Callback
+    {
+        void callbackClient(Response res);
+    };
+
     interface Printer
     {
         Response printString(string s);
@@ -16,9 +21,11 @@ module Demo
         Response printCommandResult(string dataClient, string command);
     };
 
-    interface Callback
+    interface CRUDClient
     {
-        void callbackClient(Response res);
+        void registerClient(string dataClient);
+
+        void showClients(Callback* callback);
     };
 
 /*

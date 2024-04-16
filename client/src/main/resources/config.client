@@ -1,10 +1,15 @@
 # Services that the client will be using.
 Printer.Proxy=SimplePrinter:tcp -p 9099
 ExecuteCommand.Proxy=SimpleCommandExecute:tcp -p 9098
+CRUDClient.Proxy=SimpleCRUDClient:tcp -p 9097
 
 # Uncomment to use the WebSocket transports instead.
-#Hello.Proxy=hello:ws -p 10002:udp -p 10000:wss -p 10003
+# Hello.Proxy=hello:ws -p 10002:udp -p 10000:wss -p 10003
+
+Callback.Endpoints=tcp -p 9096
 
 # We specify the server's hostname where the client
 # will be connected.
-Ice.Default.Host=hgrid2
+# Ice.Default.Host=hgrid2
+Ice.Default.Host=localhost
+Ice.ThreadPool.Server.Size=15

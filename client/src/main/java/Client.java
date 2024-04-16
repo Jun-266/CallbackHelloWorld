@@ -1,36 +1,26 @@
-<<<<<<< HEAD
-import com.zeroc.Ice.Communicator;
-import static com.zeroc.Ice.Util.initialize;
-=======
+import Demo.*;
 import com.zeroc.Ice.ObjectPrx;
 import com.zeroc.Ice.Communicator;
 import com.zeroc.Ice.ObjectAdapter;
 import static com.zeroc.Ice.Util.initialize;
 import static com.zeroc.Ice.Util.stringToIdentity;
->>>>>>> template-working
-
-import Demo.Response;
-<<<<<<< HEAD
-import Demo.ExecuteCommandPrx;
-=======
->>>>>>> template-working
-import Demo.PrinterPrx;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
 
-<<<<<<< HEAD
-public class Client {
-
-    public static void main(String[] args) {
-        startClient(args);
-    }
+public class Client
+{
+    public static void main(String[] args) { startClient(args); }
 
     public static void startClient(String[] args) {
         boolean finish = false;
-        try(Communicator communicator = initialize(args,"config.client")) {
+        List<String> extraArgs = new ArrayList<>();
+        try(Communicator communicator = initialize(args,"config.client", extraArgs))
+        {
             Scanner sc = new Scanner(System.in);
             String clientData = getClientData();
             Response response;
@@ -39,24 +29,17 @@ public class Client {
                     .checkedCast(communicator.propertyToProxy("Printer.Proxy"));
             ExecuteCommandPrx service2 = ExecuteCommandPrx
                     .checkedCast(communicator.propertyToProxy("ExecuteCommand.Proxy"));
-=======
-        try(Communicator communicator = initialize(args,"config.client",extraArgs))
-        {
-            //com.zeroc.Ice.ObjectPrx base = communicator.stringToProxy("SimplePrinter:default -p 10000");
-            Response response = null;
-            PrinterPrx service = PrinterPrx
-                    .checkedCast(communicator.propertyToProxy("Printer.Proxy"));
-            
-            if(service == null)
-            {
-                throw new Error("Invalid proxy");
-            }
+            CRUDClientPrx service3 = CRUDClientPrx
+                    .checkedCast(communicator.propertyToProxy("CRUDClient.Proxy"));
 
             ObjectAdapter adapter = communicator.createObjectAdapter("Callback");
-            CallbackImp callbackImp = new CallbackImp();
-            ObjectPrx obprx = adapter.add(callbackImp, stringToIdentity("callbackClient"));
+            CallbackI callbackI = new CallbackI();
+            ObjectPrx objectPrx = adapter.add(callbackI, stringToIdentity("callbackClient"));
             adapter.activate();
->>>>>>> template-working
+
+            CallbackPrx callbackPrx = CallbackPrx.uncheckedCast(objectPrx);
+
+            service3.registerClient(clientData);
 
             response = service1.printString(clientData + " is online!");
             System.out.println(response.value + ", " + response.responseTime);
@@ -66,10 +49,11 @@ public class Client {
                 String message = sc.nextLine();
                 if (message.equalsIgnoreCase("Exit"))
                     finish = true;
+                else if (message.equals("list clients"))
+                    printClients(message, clientData, service3, callbackPrx);
                 else
                     executeCommand(service2, message, clientData);
             }
-
             sc.close();
         }
     }
@@ -112,4 +96,29 @@ public class Client {
         System.out.println(clientData + ":$ " + command);
         System.out.println(response.value);
     }
+
+    public static void printClients(String command, String clientData,
+                                    CRUDClientPrx crudClients, CallbackPrx callbackPrx)
+    {
+        if (crudClients == null)
+            throw new Error("Invalid Proxy");
+
+        crudClients.showClients(callbackPrx);
+    }
+
+/*
+    public void someCode()
+    {
+        //com.zeroc.Ice.ObjectPrx base = communicator.stringToProxy("SimplePrinter:default -p 10000");
+        Response response = null;
+        PrinterPrx service = PrinterPrx
+                .checkedCast(communicator.propertyToProxy("Printer.Proxy"));
+
+        if(service == null)
+        {
+            throw new Error("Invalid proxy");
+        }
+
+    }
+*/
 }
