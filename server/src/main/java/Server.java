@@ -1,5 +1,7 @@
 import java.util.List;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import com.zeroc.Ice.Communicator;
 import com.zeroc.Ice.ObjectAdapter;
@@ -8,6 +10,12 @@ import static com.zeroc.Ice.Util.initialize;
 import static com.zeroc.Ice.Util.stringToIdentity;
 
 public class Server {
+
+    private static final ExecutorService executorService = Executors.newCachedThreadPool();
+
+    public static ExecutorService getExecutorService() {
+        return executorService;
+    }
 
     public static void main(String[] args)
     {
