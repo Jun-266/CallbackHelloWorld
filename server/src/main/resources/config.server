@@ -3,6 +3,9 @@ Printer.Endpoints=tcp -p 9099
 ExecuteCommand.Endpoints=tcp -p 9098
 CRUDClient.Endpoints=tcp -p 9097
 
+# Client's service.
+Callback.Proxy=callbackClient:tcp -p 9096
+
 # Server's hostname where is going to be deployed.
 # Ice.Default.Host=hgrid2
 Ice.Default.Host=localhost
